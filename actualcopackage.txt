@@ -1,0 +1,234 @@
+
+
+int LM, L, C, R, RM,  LM1, L1, C1, R1, RM1;
+int l1 = 3, l2 = 5, r1 = 6, r2 = 11;
+
+void setup()
+{
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  pinMode(A2, INPUT);
+  pinMode(A3, INPUT);
+  pinMode(A4, INPUT);
+  pinMode(l1, OUTPUT);
+  pinMode(l2, OUTPUT);
+  pinMode(r1, OUTPUT);
+  pinMode(r2, OUTPUT);
+}
+
+void left()
+{
+  analogWrite(r1, 50);
+  analogWrite(r2, 0);
+  analogWrite(l1, 0);
+  analogWrite(l2, 50);
+
+}
+
+void right()
+{
+  analogWrite(l1, 50);
+  analogWrite(l2, 0);
+  analogWrite(r1, 0);
+  analogWrite(r2, 50);
+
+}
+
+void straight()
+{
+
+  analogWrite(l1, 50);
+  analogWrite(l2, 0);
+  analogWrite(r1, 50);
+  analogWrite(r2, 0);
+}
+
+void loop()
+{
+  LM = digitalRead(A0);
+  L = digitalRead(A1);
+  C = digitalRead(A2);
+  R = digitalRead(A3);
+  RM = digitalRead(A4);
+
+  
+    if (LM == 0 && RM == 0 && L == 0 && C == 0 && R == 0)
+    {
+      left();
+      //    analogWrite(r1, 100);
+      //    analogWrite(r2, 0);
+      //    analogWrite(l1, 0);
+      //    analogWrite(l2, 100);
+
+
+      left();
+      //delay(25);
+    }
+    else if (LM == 0 && RM == 0 && L == 1 && C == 0 && R == 0)
+    { left();
+      //  delay(25);
+    }
+    else if (LM == 0 && RM == 0 && L == 1 && C == 1 && R == 0)
+    { left();
+      //delay(25);
+    }
+
+    else if (LM == 1  &&  RM == 0 && L == 1 && C == 1 && R == 0) //check if the condition is enough
+    {
+
+      straight();
+      
+      delay(100);
+      
+      left();
+
+      delay(100);      
+      while(digitalRead(A3) == 1 || digitalRead(A4) == 1)
+      {
+        left();
+        //delay(50);
+      }
+
+      //straight();
+      //left();      
+  
+    //left();
+      //delay(300);
+    }
+    
+    else if (LM == 1  &&  RM == 0 && L == 0 && C == 0 && R == 0) //check if the condition is enough
+    {
+      left();
+    //left();
+      delay(50);
+
+    
+    }
+
+    else if (LM == 0 && RM == 0 && L == 0 && C == 1 && R == 0)
+    { 
+      straight();
+      //delay(10);
+    }
+    else if (LM == 0 && RM == 0 && L == 1 && C == 0 && R == 1)
+    { 
+      straight();
+      //delay(10);
+    }
+    
+    else if (LM == 0 && RM == 0 && L == 1 && C == 1 && R == 1)
+    { 
+      straight();
+      //delay(25);
+    }
+    else if (LM == 0 && RM == 0 && L == 0 && C == 0 && R == 1)
+    { 
+      right();
+      //delay(25);
+    }
+    else if (LM == 0 && RM == 0 && L == 0 && C == 1 && R == 1)
+    { 
+      right();
+      //delay(25);
+    }
+  
+
+  else  if (LM == 1 && RM == 1 && L == 1 && C == 1 && R == 1)
+  {
+    straight();
+    delay(300);
+
+    LM1 = digitalRead(A0);
+    L1 = digitalRead(A1);
+    C1 = digitalRead(A2);
+    R1 = digitalRead(A3);
+    RM1 = digitalRead(A4);
+
+    if (LM1 == 1 && RM1 == 1 && L1 == 1 && C1 == 1 && R1 == 1)
+    {
+      analogWrite(l1, 0);
+      analogWrite(l2, 0);
+      analogWrite(r1, 0);
+      analogWrite(r2, 0);
+      delay(10000000);
+    }
+  }
+
+  /* else if (LM == 1 && L == 0 && C == 0 && R == 1&& RM==1)
+  {
+    left();
+     left();
+    delay(150);
+  }*/
+ // else if (LM == 1 && C == 1 && L == 1 && RM == 0)
+ // {
+ //   left();
+ //   left();
+  //  delay(150);
+  //}
+
+  /*else if (LM == 1  &&  RM == 0)
+  {
+    left();
+    //left();
+    delay(50);
+  }*/
+
+  /*else if ( RM == 1 && C == 1 && R == 1 && LM == 0) 
+  {
+
+    straight();
+    delay(100);
+
+    LM1 = digitalRead(A0);
+    L1 = digitalRead(A1);
+    C1 = digitalRead(A2);
+    R1 = digitalRead(A3);
+    RM1 = digitalRead(A4);
+
+    if (LM1 == 0 && RM1 == 0 && L1 == 0 && C1 == 0 && R1 == 0)
+    {
+      analogWrite(l1, 0);
+      analogWrite(l2, 100);
+      analogWrite(r1, 0);
+      analogWrite(r2, 100);
+      right();
+      right();
+      delay(150);
+    }
+  }*/
+  else if (LM == 0 && RM == 1 && L == 0 && C == 1 && R == 1)
+  { 
+      delay(50);
+      if(digitalRead(A0) == 1 || digitalRead(A1) == 1 || digitalRead(A2) == 1 || digitalRead(A3) == 1 ||  digitalRead(A4) == 1)
+      {
+        straight();
+        delay(100);
+         
+      }
+     
+      if(digitalRead(A0) == 1 || digitalRead(A1) == 1 || digitalRead(A2) == 1 || digitalRead(A3) == 1 || digitalRead(A4) == 1)
+      {
+        straight();
+        delay(50); 
+      }
+
+      if(digitalRead(A0) == 0 && digitalRead(A1) == 0 && digitalRead(A2) == 0 && digitalRead(A3) == 0 && digitalRead(A4) == 0)
+      {
+        while(digitalRead(A3) == 0 || digitalRead(A4) == 0)
+        {
+          right();
+          delay(50);
+        }
+      }
+  }  
+  else if  (LM == 0 && RM == 1)
+  {
+    right();
+    //delay(50);
+  }
+
+
+}
+
+
